@@ -82,6 +82,13 @@ keyboard.addEventListener('mouseup', (event) => {
 
 
 document.addEventListener('keydown', (event) => {
+    console.log(event.key);
+    if(event.altKey && event.shiftKey) {
+        clear();
+        currentLang === eng ? currentLang = rus : currentLang = eng;
+        render(currentLang, 0)
+        return;
+    }
     if(event.ctrlKey) {
         document.querySelector('[data-val=Ctrl]').classList.add('active');
         return;
