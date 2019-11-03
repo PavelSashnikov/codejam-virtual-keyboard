@@ -631,7 +631,7 @@ const rus = [
         keyCode: 18
     },
     {
-        content: [' '],
+        content: ['Space'],
         row: 4,
         keyCode: 32
     },

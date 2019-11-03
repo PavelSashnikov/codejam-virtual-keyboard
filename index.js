@@ -23,7 +23,9 @@ const row4 = document.createElement('p');
 row4.classList.add('row4');
 keyboard.append(row4);
 
-render(eng, 1);
+let currentLang = eng;
+
+render(currentLang, 0);
 
 function render(lang, alt) {
     lang.forEach(el => {
@@ -31,22 +33,92 @@ function render(lang, alt) {
         el.classNames.forEach( (cl) => {
             key.classList.add(cl)
         })
+        key.setAttribute('data-val', el.content[alt]);
         key.innerText = el.content[alt] ? el.content[alt] : el.content[alt-1];
         const currentRow = document.querySelector('.row'+el.row);
         currentRow.append(key);
     });
 }
-keyboard.addEventListener('click', (event) => {
+function clear() {
+    const rows = keyboard.querySelectorAll('p');
+    rows.forEach(row => {
+        row.innerText = '';
+    })
+    
+}
+keyboard.addEventListener('mousedown', (event) => {
     const target = event.target;
+    if(target.innerText === 'Backspace') {
+        textArea.innerHTML = textArea.innerHTML.slice(0, -1);
+    }
+    if(target.innerText === 'Shift') {
+        clear();
+        render(currentLang, 1)
+        document.querySelector('.shift').classList.add('active');
+        return;
+    }
     if(target.innerText === 'Enter') {
         textArea.innerHTML += '\n';
+    } else if(target.dataset.val === ' ') {
+        textArea.innerHTML += '&#160;';
     }
-    if(target.classList.contains('key') && target.innerHTML.length <= 1) {
-        textArea.innerHTML += target.innerText;
+    if(target.classList.contains('key')) {
+        target.classList.add('active')
+        if(target.innerHTML.length <= 1) {
+            textArea.innerHTML += target.innerText;
+        }
     }
 })
+keyboard.addEventListener('mouseup', (event) => {
+    const target = event.target;
+    if(target.innerText === 'Shift') {
+        clear();
+        render(currentLang, 0);
+        document.querySelector('.shift').classList.remove('active');
+        return;
+    }
+    target.classList.remove('active');
+})
+
+
 document.addEventListener('keydown', (event) => {
-    textArea.innerHTML += event.key;
-    console.log(targetKey);
+    if(event.ctrlKey) {
+        document.querySelector('[data-val=Ctrl]').classList.add('active');
+        return;
+    }
+    if(event.shiftKey) {
+        clear();
+        render(currentLang, 1);
+        document.querySelector('.shift').classList.add('active');
+        return;
+        
+    }
+    if(event.key.length <= 1) {
+        textArea.innerHTML += event.key;
+    }
+    if(event.code === 'Space') {
+        document.querySelector('.space').classList.add('active');
+        return;
+    }
+    const button = document.querySelector('[data-val='+event.key+']');
+    button.classList.add('active');
+})
+document.addEventListener('keyup', (event) => {
+    if(event.key === 'Control') {
+        document.querySelector('[data-val=Ctrl]').classList.remove('active');
+        return;
+    }
+    if(event.key === 'Shift') {
+        clear();
+        render(currentLang, 0);
+        document.querySelector('.shift').classList.remove('active');
+        
+    }
+    if(event.code === 'Space') {
+        document.querySelector('.space').classList.remove('active');
+        return;
+    }
+    const button = document.querySelector('[data-val='+event.key+']');
+    button.classList.remove('active');
 })
 
