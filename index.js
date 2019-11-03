@@ -23,13 +23,30 @@ const row4 = document.createElement('p');
 row4.classList.add('row4');
 keyboard.append(row4);
 
+render(eng, 1);
+
 function render(lang, alt) {
     lang.forEach(el => {
         const key = document.createElement('button');
-        key.classList.add(el.classNames);
-        key.innerText = el.content[alt];
+        el.classNames.forEach( (cl) => {
+            key.classList.add(cl)
+        })
+        key.innerText = el.content[alt] ? el.content[alt] : el.content[alt-1];
         const currentRow = document.querySelector('.row'+el.row);
         currentRow.append(key);
     });
 }
-render(eng, 0);
+keyboard.addEventListener('click', (event) => {
+    const target = event.target;
+    if(target.innerText === 'Enter') {
+        textArea.innerHTML += '\n';
+    }
+    if(target.classList.contains('key') && target.innerHTML.length <= 1) {
+        textArea.innerHTML += target.innerText;
+    }
+})
+document.addEventListener('keydown', (event) => {
+    textArea.innerHTML += event.key;
+    console.log(targetKey);
+})
+

@@ -312,12 +312,6 @@ const eng = [
         keyCode: 191
     },
     {
-        content: ['↑'],
-        classNames: ['key', 'arrow-up'],
-        row: 3,
-        keyCode: 38
-    },
-    {
         content: ['Shift'],
         classNames: ['key', 'shift-right'],
         row: 3,
@@ -328,12 +322,6 @@ const eng = [
         classNames: ['key', 'ctrl-left'],
         row: 4,
         keyCode: 17
-    },
-    {
-        content: ['Win'],
-        classNames: ['key', 'win'],
-        row: 4,
-        keyCode: 91
     },
     {
         content: ['Alt'],
@@ -358,24 +346,6 @@ const eng = [
         classNames: ['key', 'ctrl-right'],
         row: 4,
         keyCode: 17
-    },
-    {
-        content: ['←'],
-        classNames: ['key', 'arrow-left'],
-        row: 4,
-        keyCode: 37
-    },
-    {
-        content: ['↓'],
-        classNames: ['key', 'arrow-down'],
-        row: 4,
-        keyCode: 40
-    },
-    {
-        content: ['→'],
-        classNames: ['key', 'arrow-right'],
-        row: 4,
-        keyCode: 39
     }
 ];
 
@@ -641,11 +611,6 @@ const rus = [
         keyCode: 191
     },
     {
-        content: ['↑'],
-        row: 3,
-        keyCode: 38
-    },
-    {
         content: ['Shift'],
         row: 3,
         keyCode: 16
@@ -679,20 +644,5 @@ const rus = [
         content: ['Ctrl'],
         row: 4,
         keyCode: 17
-    },
-    {
-        content: ['←'],
-        row: 4,
-        keyCode: 37
-    },
-    {
-        content: ['↓'],
-        row: 4,
-        keyCode: 40
-    },
-    {
-        content: ['→'],
-        row: 4,
-        keyCode: 39
     }
 ];

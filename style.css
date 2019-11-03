@@ -1,0 +1,13 @@
+button {
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0 5px;
+    background: rgb(75, 74, 74);
+    color: #fff;
+    transition: all .3s;
+}
+.active {
+    background: rgb(8, 105, 161);
+}
