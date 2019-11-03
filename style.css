@@ -1,8 +1,18 @@
+textarea {
+    display: block;
+    margin: 0 auto;
+}
+.keyboard {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
 button {
     outline: 0;
     border: 0;
     cursor: pointer;
-    padding: 10px;
+    min-width: 40px;
+    height: 40px;
     margin: 0 5px;
     background: rgb(75, 74, 74);
     color: #fff;
@@ -14,5 +24,5 @@ button {
 }
 .space {
     width: 40%;
-    height: 30px;
+    height: 40px;
 }
