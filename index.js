@@ -23,7 +23,12 @@ const row4 = document.createElement('p');
 row4.classList.add('row4');
 keyboard.append(row4);
 
-let currentLang = eng;
+let currentLang;
+if(localStorage.myLang === 'rus') {
+    currentLang = rus;
+} else {
+    currentLang = eng;
+}
 
 render(currentLang, 0);
 
@@ -82,9 +87,9 @@ keyboard.addEventListener('mouseup', (event) => {
 
 
 document.addEventListener('keydown', (event) => {
-    console.log(event.key);
     if(event.altKey && event.shiftKey) {
         clear();
+        localStorage.getItem('myLang') === 'eng' ? localStorage.setItem('myLang', 'rus') : localStorage.setItem('myLang', 'eng')
         currentLang === eng ? currentLang = rus : currentLang = eng;
         render(currentLang, 0)
         return;
@@ -107,7 +112,7 @@ document.addEventListener('keydown', (event) => {
         document.querySelector('.space').classList.add('active');
         return;
     }
-    const button = document.querySelector('[data-val='+event.key+']');
+    const button = document.querySelector('[data-val='+ event.key +']');
     button.classList.add('active');
 })
 document.addEventListener('keyup', (event) => {
@@ -125,7 +130,7 @@ document.addEventListener('keyup', (event) => {
         document.querySelector('.space').classList.remove('active');
         return;
     }
-    const button = document.querySelector('[data-val='+event.key+']');
+    const button = document.querySelector('[data-val='+ event.key +']');
     button.classList.remove('active');
 })
 
