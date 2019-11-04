@@ -140,7 +140,7 @@ const eng = [
         row: 1,
     },
     {
-        content: ['CapsLock'],
+        content: ['CapsLock', 'CapsLock'],
         classNames: ['key', 'capslock'],
         row: 2,
     },
@@ -433,7 +433,7 @@ const rus = [
         row: 1,
     },
     {
-        content: ['CapsLock'],
+        content: ['CapsLock', 'CapsLock'],
         classNames: ['key'],
         row: 2,
     },
