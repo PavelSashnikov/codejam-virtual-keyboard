@@ -1,4 +1,4 @@
-const body = document.querySelector('body');
+const body = document.body;
 const textArea = document.createElement('textarea');
 textArea.rows = 20;
 textArea.cols = 70;
@@ -23,6 +23,7 @@ const row4 = document.createElement('p');
 row4.classList.add('row4');
 keyboard.append(row4);
 
+let caps = false;
 let currentLang;
 if(localStorage.myLang === 'rus') {
     currentLang = rus;
@@ -40,7 +41,7 @@ function render(lang, alt) {
         })
         key.setAttribute('data-val', el.content[alt]);
         key.innerText = el.content[alt] ? el.content[alt] : el.content[alt-1];
-        const currentRow = document.querySelector('.row'+el.row);
+        const currentRow = document.querySelector(`.row${el.row}`);
         currentRow.append(key);
     });
 }
@@ -53,16 +54,29 @@ function clear() {
 }
 keyboard.addEventListener('mousedown', (event) => {
     const target = event.target;
-    if(target.innerText === 'Backspace') {
+    if(target.closest('.capslock')) {
+        if(!caps) {
+            clear();
+            render(currentLang, 1);
+            document.querySelector('.capslock').classList.add('active');
+            caps = true;
+        } else {
+            clear();
+            render(currentLang, 0);
+            document.querySelector('.capslock').classList.remove('active');
+            caps = false;
+        }
+    }
+    if(target.closest('.backspace')) {
         textArea.innerHTML = textArea.innerHTML.slice(0, -1);
     }
-    if(target.innerText === 'Shift') {
+    if(target.closest('.shift')) {
         clear();
         render(currentLang, 1)
         document.querySelector('.shift').classList.add('active');
         return;
     }
-    if(target.innerText === 'Enter') {
+    if(target.closest('.enter')) {
         textArea.innerHTML += '\n';
     } else if(target.dataset.val === ' ') {
         textArea.innerHTML += '&#160;';
@@ -76,17 +90,34 @@ keyboard.addEventListener('mousedown', (event) => {
 })
 keyboard.addEventListener('mouseup', (event) => {
     const target = event.target;
-    if(target.innerText === 'Shift') {
+    if(target.closest('.shift')) {
         clear();
         render(currentLang, 0);
         document.querySelector('.shift').classList.remove('active');
         return;
     }
     target.classList.remove('active');
+    if(caps) {
+        document.querySelector('.capslock').classList.add('active');
+    }
 })
 
 
 document.addEventListener('keydown', (event) => {
+    if(event.key === 'CapsLock') {
+        if(!caps) {
+            clear();
+            render(currentLang, 1);
+            document.querySelector('.capslock').classList.add('active');
+            caps = true;
+        } else {
+            clear();
+            render(currentLang, 0);
+            document.querySelector('.capslock').classList.remove('active');
+            caps = false;
+        }
+        return;
+    }
     if(event.altKey && event.shiftKey) {
         clear();
         localStorage.getItem('myLang') === 'eng' ? localStorage.setItem('myLang', 'rus') : localStorage.setItem('myLang', 'eng')
@@ -116,6 +147,7 @@ document.addEventListener('keydown', (event) => {
     button.classList.add('active');
 })
 document.addEventListener('keyup', (event) => {
+    const button = document.querySelector('[data-val='+ event.key +']');
     if(event.key === 'Control') {
         document.querySelector('[data-val=Ctrl]').classList.remove('active');
         return;
@@ -130,7 +162,9 @@ document.addEventListener('keyup', (event) => {
         document.querySelector('.space').classList.remove('active');
         return;
     }
-    const button = document.querySelector('[data-val='+ event.key +']');
     button.classList.remove('active');
+    if(caps) {
+        document.querySelector('.capslock').classList.add('active');
+    }
 })
 
