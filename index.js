@@ -72,7 +72,7 @@ keyboard.addEventListener('mousedown', (event) => {
     }
     if(target.closest('.shift')) {
         clear();
-        render(currentLang, 1)
+        render(currentLang, 1);
         document.querySelector('.shift').classList.add('active');
         return;
     }
@@ -82,7 +82,7 @@ keyboard.addEventListener('mousedown', (event) => {
         textArea.innerHTML += '&#160;';
     }
     if(target.classList.contains('key')) {
-        target.classList.add('active')
+        target.classList.add('active');
         if(target.innerHTML.length <= 1) {
             textArea.innerHTML += target.innerText;
         }
@@ -120,9 +120,9 @@ document.addEventListener('keydown', (event) => {
     }
     if(event.altKey && event.shiftKey) {
         clear();
-        localStorage.getItem('myLang') === 'eng' ? localStorage.setItem('myLang', 'rus') : localStorage.setItem('myLang', 'eng')
+        localStorage.getItem('myLang') === 'eng' ? localStorage.setItem('myLang', 'rus') : localStorage.setItem('myLang', 'eng');
         currentLang === eng ? currentLang = rus : currentLang = eng;
-        render(currentLang, 0)
+        render(currentLang, 0);
         return;
     }
     if(event.ctrlKey) {
